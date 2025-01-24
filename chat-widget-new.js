@@ -279,6 +279,29 @@
     styleSheet.textContent = styles;
     document.head.appendChild(styleSheet);
 
+    // Default configuration
+    const defaultConfig = {
+        webhook: {
+            url: '',
+            route: ''
+        },
+        branding: {
+            logo: '',
+            name: '',
+            welcomeText: '',
+            responseTimeText: '',
+            poweredBy: {
+                text: 'Powered by n8n',
+                link: 'https://n8n.partnerlinks.io/m8a94i19zhqq?utm_source=nocodecreative.io'
+            }
+        },
+        style: {
+            primaryColor: '',
+            secondaryColor: '',
+            position: 'right'
+        }
+    };
+
     // Merge user config with defaults
     const config = window.ChatWidgetConfig ? 
         {
@@ -322,22 +345,26 @@
         </div>
     `;
 
-    const chatInterfaceHTML = `
-        <div class="chat-interface">
-            <div class="brand-header">
-                <img src="${config.branding.logo}" alt="${config.branding.name}">
-                <span>${config.branding.name}</span>
-                <button class="close-button">×</button>
-            </div>
-            <div class="chat-messages"></div>
-            <div class="chat-input">
-                <textarea placeholder="Type your message here..." rows="1"></textarea>
-                <button type="submit">Send</button>
-            </div>
-            <div class="chat-footer">
-                <a href="${config.branding.poweredBy.link}" target="_blank">${config.branding.poweredBy.text}</a>
-            </div>
+const chatInterfaceHTML = `
+    <div class="chat-interface">
+        <div class="brand-header">
+            <img src="${config.branding.logo}" alt="${config.branding.name}">
+            <span>${config.branding.name}</span>
+            <button class="close-button">×</button>
         </div>
+        <div class="chat-messages"></div>
+        <div class="chat-input">
+            <textarea placeholder="Type your message here..." rows="1"></textarea>
+            <button type="submit">Send</button>
+        </div>
+        <!-- Commented out poweredBy section -->
+        <!--
+        <div class="chat-footer">
+            <a href="${config.branding.poweredBy.link}" target="_blank">${config.branding.poweredBy.text}</a>
+        </div>
+        -->
+    </div>`;
+
     `;
     
     chatContainer.innerHTML = newConversationHTML + chatInterfaceHTML;
