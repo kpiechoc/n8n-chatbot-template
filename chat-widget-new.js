@@ -266,6 +266,10 @@
         .n8n-chat-widget .chat-footer a:hover {
             opacity: 1;
         }
+		
+		.n8n-chat-widget .chat-footer {
+		display: none !important;
+		}	
     `;
 
     // Load Geist font
@@ -303,7 +307,7 @@
     const config = window.ChatWidgetConfig ? 
         {
             webhook: { ...defaultConfig.webhook, ...window.ChatWidgetConfig.webhook },
-           // branding: { ...defaultConfig.branding, ...window.ChatWidgetConfig.branding },
+            branding: { ...defaultConfig.branding, ...window.ChatWidgetConfig.branding },
             style: { ...defaultConfig.style, ...window.ChatWidgetConfig.style }
         } : defaultConfig;
 
