@@ -1,4 +1,4 @@
-(function() {
+(function () {
     // Create and inject styles
     const styles = `
         .n8n-chat-widget {
@@ -65,6 +65,30 @@
 
         .n8n-chat-widget .chat-interface.active {
             display: flex;
+        }
+
+        .chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #854fff 0%, #6b3fd4 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(133, 79, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .chat-toggle svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
         }
     `;
 
@@ -195,5 +219,10 @@
 
     toggleButton.addEventListener('click', () => {
         chatContainer.classList.toggle('open');
+        if (chatContainer.classList.contains('open')) {
+            chatInterface.classList.add('active');
+        } else {
+            chatInterface.classList.remove('active');
+        }
     });
 })();
