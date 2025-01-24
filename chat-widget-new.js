@@ -411,17 +411,26 @@
             chatContainer.querySelector('.new-conversation').style.display = 'none';
             chatInterface.classList.add('active');
 
-            const botMessageDiv = document.createElement('div');
-            botMessageDiv.className = 'chat-message bot';
-            botMessageDiv.textContent = Array.isArray(responseData) ? responseData[0].output : responseData.output;
-            messagesContainer.appendChild(botMessageDiv);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            const botMessage = Array.isArray(responseData) ? responseData[0].output : responseData.output;
+
+            if (botMessage.trim()) {
+                const botMessageDiv = document.createElement('div');
+                botMessageDiv.className = 'chat-message bot';
+                botMessageDiv.textContent = botMessage;
+                messagesContainer.appendChild(botMessageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
         } catch (error) {
             console.error('Error:', error);
         }
     }
 
     async function sendMessage(message) {
+        if (!message.trim()) {
+            // Skip adding empty messages
+            return;
+        }
+
         const messageData = {
             action: "sendMessage",
             sessionId: currentSessionId,
