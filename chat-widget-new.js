@@ -357,10 +357,6 @@
                 <textarea placeholder="Type your message here..." rows="1"></textarea>
                 <button type="submit">Send</button>
             </div>
-			<!-- <div class="chat-footer">
-				<a href="${config.branding.poweredBy.link}" target="_blank">${config.branding.poweredBy.text}</a>
-			</div> -->
-
         </div>
     `;
     
@@ -412,14 +408,14 @@
             chatContainer.querySelector('.new-conversation').style.display = 'none';
             chatInterface.classList.add('active');
 
-			const botMessage = Array.isArray(responseData) ? responseData[0].output : responseData.output;
-			if (botMessage.trim()) {
-				const botMessageDiv = document.createElement('div');
-				botMessageDiv.className = 'chat-message bot';
-				botMessageDiv.innerHTML = marked.parse(botMessage);
-				messagesContainer.appendChild(botMessageDiv);
-				messagesContainer.scrollTop = messagesContainer.scrollHeight;
-			}
+		const botMessage = Array.isArray(responseData) ? responseData[0].output : responseData.output;
+		if (botMessage.trim()) {
+			const botMessageDiv = document.createElement('div');
+			botMessageDiv.className = 'chat-message bot';
+			botMessageDiv.innerHTML = marked.parse(botMessage);
+			messagesContainer.appendChild(botMessageDiv);
+			messagesContainer.scrollTop = messagesContainer.scrollHeight;
+		}
         } catch (error) {
             console.error('Error:', error);
         }
