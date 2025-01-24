@@ -274,7 +274,14 @@
 	//marked.js
 	const script = document.createElement('script');
 	script.src = 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
+	script.onload = () => {
+		console.log('Marked.js loaded successfully');
+	};
+	script.onerror = () => {
+		console.error('Failed to load Marked.js');
+	};
 	document.head.appendChild(script);
+
 
     // Load Geist font
     const fontLink = document.createElement('link');
@@ -421,7 +428,12 @@
 		if (botMessage.trim()) {
 			const botMessageDiv = document.createElement('div');
 			botMessageDiv.className = 'chat-message bot';
-			botMessageDiv.innerHTML = marked.parse(botMessage);
+			if (typeof marked !== 'undefined') {
+				botMessageDiv.innerHTML = marked.parse(botMessage);
+			} else {
+				console.warn('Marked.js is not loaded. Displaying plain text instead.');
+				botMessageDiv.textContent = botMessage;
+			}
 			messagesContainer.appendChild(botMessageDiv);
 			messagesContainer.scrollTop = messagesContainer.scrollHeight;
 		}
@@ -465,7 +477,13 @@
             
             const botMessageDiv = document.createElement('div');
             botMessageDiv.className = 'chat-message bot';
-            botMessageDiv.innerHTML = marked.parse(Array.isArray(data) ? data[0].output : data.output);
+            if (typeof marked !== 'undefined') {
+				const botResponse = Array.isArray(data) ? data[0].output : data.output;
+				botMessageDiv.innerHTML = marked.parse(botResponse);
+			} else {
+				console.warn('Marked.js is not loaded. Displaying plain text instead.');
+				botMessageDiv.textContent = Array.isArray(data) ? data[0].output : data.output;
+			}
             messagesContainer.appendChild(botMessageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         } catch (error) {
