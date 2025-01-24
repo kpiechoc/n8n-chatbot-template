@@ -271,6 +271,10 @@
 		display: none !important;
 		}	
     `;
+	//marked.js
+	const script = document.createElement('script');
+	script.src = 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
+	document.head.appendChild(script);
 
     // Load Geist font
     const fontLink = document.createElement('link');
@@ -461,7 +465,7 @@
             
             const botMessageDiv = document.createElement('div');
             botMessageDiv.className = 'chat-message bot';
-            botMessageDiv.textContent = Array.isArray(data) ? data[0].output : data.output;
+            botMessageDiv.innerHTML = marked.parse(Array.isArray(data) ? data[0].output : data.output);
             messagesContainer.appendChild(botMessageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         } catch (error) {
