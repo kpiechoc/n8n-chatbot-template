@@ -272,15 +272,20 @@
 		}	
     `;
 	//marked.js
-	const script = document.createElement('script');
-	script.src = 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
-	script.onload = () => {
-		console.log('Marked.js loaded successfully');
-	};
-	script.onerror = () => {
-		console.error('Failed to load Marked.js');
-	};
-	document.head.appendChild(script);
+	const loadMarked = new Promise((resolve, reject) => {
+		const script = document.createElement('script');
+		script.src = 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
+		script.onload = () => {
+			console.log('Marked.js loaded successfully');
+			resolve();
+		};
+		script.onerror = () => {
+			console.error('Failed to load Marked.js');
+			reject();
+		};
+		document.head.appendChild(script);
+	});
+
 
 
     // Load Geist font
@@ -429,7 +434,12 @@
 			const botMessageDiv = document.createElement('div');
 			botMessageDiv.className = 'chat-message bot';
 			if (typeof marked !== 'undefined') {
-				botMessageDiv.innerHTML = marked.parse(botMessage);
+				loadMarked.then(() => {
+					botMessageDiv.innerHTML = marked.parse(botMessage);
+				}).catch(() => {
+					console.warn('Marked.js not loaded. Displaying plain text instead.');
+					botMessageDiv.textContent = botMessage;
+				});
 			} else {
 				console.warn('Marked.js is not loaded. Displaying plain text instead.');
 				botMessageDiv.textContent = botMessage;
