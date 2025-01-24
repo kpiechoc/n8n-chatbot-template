@@ -290,10 +290,7 @@
             name: '',
             welcomeText: '',
             responseTimeText: '',
-            poweredBy: {
-                text: 'Powered by n8n',
-                link: 'https://n8n.partnerlinks.io/m8a94i19zhqq?utm_source=nocodecreative.io'
-            }
+            poweredBy: null
         },
         style: {
             primaryColor: '',
@@ -357,6 +354,10 @@
                 <textarea placeholder="Type your message here..." rows="1"></textarea>
                 <button type="submit">Send</button>
             </div>
+			<!-- <div class="chat-footer">
+				<a href="${config.branding.poweredBy.link}" target="_blank">${config.branding.poweredBy.text}</a>
+			</div> -->
+
         </div>
     `;
     
